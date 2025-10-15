@@ -1,0 +1,75 @@
+# version: '3.8'
+
+# # services:
+# #   validator:
+# #     image: golang:1.21
+# #     container_name: validator-node
+# #     volumes:
+# #       - ./sim:/app
+# #     working_dir: /app
+# #     command: go run validator.go
+# version: '3'
+# services:
+#   prometheus:
+#     image: prom/prometheus
+#     volumes:
+#       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+#     ports:
+#       - "9090:9090"
+
+#   grafana:
+#     image: grafana/grafana
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - grafana-storage:/var/lib/grafana
+#     environment:
+#       - GF_SECURITY_ADMIN_PASSWORD=admin
+
+# volumes:
+#   grafana-storage:
+
+# validator-exporter:
+#   build:
+#     context: ./sim
+#   ports:
+#     - "2112:2112"
+#   networks:
+#     - monitoring
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/var/lib/grafana
+
+  validator-exporter:
+    build:
+      context: ./sim
+    ports:
+      - "2112:2112"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:

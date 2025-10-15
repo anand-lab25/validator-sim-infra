@@ -30,3 +30,33 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+# Go build artifacts
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dll
+*.test
+*.prof
+
+# Go workspace
+bin/
+pkg/
+
+# Docker
+*.log
+*.pid
+
+# Prometheus/Grafana
+prometheus_data/
+grafana_data/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
