@@ -48,7 +48,7 @@ scrape_configs:
       - targets: ['validator-exporter:2112']
 
 📊 Grafana Dashboard
-![Dashboard Name: validator monitoring] (assets/validator.png)
+<img src="https://raw.githubusercontent.com/anand-lab25/validator-sim-infra/main/assets/validator.png" alt="Dashboard Name: validator monitoring" width="800"/>
 
 Panels:
 
